@@ -67,12 +67,14 @@
 
 #### 使用方法
 
-下载dm.py，运行传入账号密码即可
+下载dm.py，运行传入账号密码即可，运行时不要开全局代理
 
 `python dm.py xxx xxx`
 
 也可以直接点击bat执行
 
+![img.png](./img/run.png)
+
 #### 联系方式
 
-无
+http://t.me/dmkjLearn

@@ -144,6 +144,8 @@ class Student:
             LogColor.info(f"距离活动报名开始还剩：{se}秒")
             if se > 60:
                 time.sleep(30)
+                # 防止签名过期
+                submitData = self.getSign(self.submit(activityId, True))
             elif se > 3:
                 time.sleep(1)
             elif -3 <= se <= 3:
@@ -177,3 +179,4 @@ if __name__ == '__main__':
             s = input("是否继续：")
             if s == '否':
                 break
+    time.sleep(100)

@@ -170,8 +170,8 @@ class Student:
 
 
 if __name__ == '__main__':
-    student = Student('xxx', 'xxx')
-    # student = Student(sys.argv[1], sys.argv[2])
+    # student = Student('xxx', 'xxx')
+    student = Student(sys.argv[1], sys.argv[2])
     login = student.login()
     if login:
         LogColor.warning(login)

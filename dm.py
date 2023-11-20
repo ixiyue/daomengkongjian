@@ -131,7 +131,9 @@ class Student:
         activities = self.activities()['data']['list']
         ind = 1
         for a in activities:
-            LogColor.info(f'{ind}.{a["name"]} --- {a["activitytime"]} {a["statusText"]} ')
+            # 过滤状态
+            if a["statusText"] not in ['已结束']:
+                LogColor.info(f'{ind}.{a["name"]} --- {a["activitytime"]} {a["statusText"]} ')
             ind += 1
         s = int(input("请选择活动："))
         activityId = activities[s - 1]['activityId']
@@ -170,8 +172,18 @@ class Student:
 
 
 if __name__ == '__main__':
-    # student = Student('xxx', 'xxx')
-    student = Student(sys.argv[1], sys.argv[2])
+    # 输入类型1，代码写死
+    account = ''
+    password = ''
+    # 输入类型2，命令传参
+    if len(sys.argv) == 3:
+        account = sys.argv[1]
+        password = sys.argv[2]
+    # 输入类型3，控制台输入
+    if not account or not password:
+        account = input("请输入账号：")
+        password = input("请输入密码：")
+    student = Student(account, password)
     login = student.login()
     if login:
         LogColor.warning(login)

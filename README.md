@@ -69,9 +69,16 @@
 
 下载dm.py，运行传入账号密码即可，运行时不要开全局代理
 
-`python dm.py xxx xxx`
+最新代码支持三种账号密码输入形式：
 
-也可以直接点击bat执行
+ 1.代码写死，（dm最下面代码中修改）
+
+ 2.命令携带，`python dm.py xxx xxx`（也可以直接点击bat执行）
+
+ 3.控制台输入，直接运行dm.py
+
+默认过滤已结束活动，可在数组`if a["statusText"] not in ['已结束']`中修改
+
 
 ![img.png](./img/run.png)
 

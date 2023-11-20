@@ -112,10 +112,13 @@ class Student:
         return self.req('activity/detail', self.getSign(data))
 
     def submit(self, aid, get_data=False):
+        info = [{"conent": "", "content": "", "fullid": "79857", "key": 1, "notList": "false", "notNull": "false",
+                 "system": 0,
+                 "title": "姓名"}]
         data = {
             'uid': self.info['uid'],  # 登陆接口获取
             'token': self.info['token'],  # 登陆接口获取
-            'data': str([]),  # 活动报名参数
+            'data': json.dumps(info),  # 活动报名参数
             'remark': '',
             'activityId': aid,  # 活动ID
             'version': self.version
@@ -155,25 +158,20 @@ class Student:
                 time.sleep(1)
             elif -3 <= se <= 3:
                 submit = self.req('signup/submit', submitData)
+                LogColor.info(str(submit))
                 if submit['code'] == '100':
-                    LogColor.info("活动报名成功")
-                    LogColor.error("任务停止！")
+                    LogColor.error("提交成功，任务停止！")
                     break
-                if submit.get("msg"):
-                    LogColor.info(submit['msg'])
             else:
                 submit = self.req('signup/submit', submitData)
-                if submit['code'] == '100':
-                    LogColor.info("活动报名成功")
-                if submit.get("msg"):
-                    LogColor.info(submit['msg'])
-                LogColor.error("任务停止！")
+                LogColor.info(str(submit))
+                LogColor.error("提交成功，任务停止！")
                 break
 
 
 if __name__ == '__main__':
-    # student = Student('xxxx', 'xxx')
-    student = Student(sys.argv[1], sys.argv[2])
+    student = Student('xxx', 'xxx')
+    # student = Student(sys.argv[1], sys.argv[2])
     login = student.login()
     if login:
         LogColor.warning(login)

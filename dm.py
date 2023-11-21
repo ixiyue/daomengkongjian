@@ -53,7 +53,7 @@ class Student:
             data['timestamp'] = str(int(1000 * time.time()))
         else:
             data['timestamp'] = str(int(timestamp))
-        signData = requests.post('http://kp81n2es.shenzhuo.vip:41756/api/sign',
+        signData = requests.post('http://s11.v100.vip:8089/api/sign',
                                  json={'token': 'xxx', 'data': json.dumps(data), }).json()
         if signData['code'] == 200:
             LogColor.info(f"数据签名成功：{data} {signData['d']}")

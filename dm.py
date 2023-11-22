@@ -163,19 +163,22 @@ class Student:
             elif se > 3:
                 time.sleep(1)
             elif -3 <= se <= 3:
-                # 目前不清楚data内容 暂时都试一下
-                submit = self.req('signup/submit', submitData)
-                LogColor.info(str(submitData))
-                LogColor.info(str(submit))
-                if submit['code'] == '100':
-                    LogColor.error("提交成功，任务停止！")
-                    break
-                submit = self.req('signup/submit', submitDataInfo)
-                LogColor.info(str(submitDataInfo))
-                LogColor.info(str(submit))
-                if submit['code'] == '100':
-                    LogColor.error("提交成功，任务停止！")
-                    break
+                if se > -1:
+                    # 目前不清楚data内容 暂时都试一下
+                    submit = self.req('signup/submit', submitData)
+                    LogColor.info(str(submitData))
+                    LogColor.info(str(submit))
+                    if submit['code'] == '100':
+                        LogColor.error("提交成功，任务停止！")
+                        break
+                    submit = self.req('signup/submit', submitDataInfo)
+                    LogColor.info(str(submitDataInfo))
+                    LogColor.info(str(submit))
+                    if submit['code'] == '100':
+                        LogColor.error("提交成功，任务停止！")
+                        break
+                else:
+                    time.sleep(0.3)
             else:
                 submit = self.req('signup/submit', submitData)
                 LogColor.info(str(submit))

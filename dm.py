@@ -111,14 +111,17 @@ class Student:
         }
         return self.req('activity/detail', self.getSign(data))
 
-    def submit(self, aid, get_data=False):
-        info = [{"conent": "", "content": "", "fullid": "79857", "key": 1, "notList": "false", "notNull": "false",
-                 "system": 0,
-                 "title": "姓名"}]
+    def submit(self, aid, get_data=False, hasInfo=False):
+        if hasInfo:
+            info = [{"conent": "", "content": "", "fullid": "79857", "key": 1, "notList": "false", "notNull": "false",
+                     "system": 0,
+                     "title": "姓名"}]
+        else:
+            info = []
         data = {
             'uid': self.info['uid'],  # 登陆接口获取
             'token': self.info['token'],  # 登陆接口获取
-            'data': json.dumps(info),  # 活动报名参数
+            'data': json.dumps(info).replace(" ", ""),  # 活动报名参数
             'remark': '',
             'activityId': aid,  # 活动ID
             'version': self.version
@@ -150,6 +153,7 @@ class Student:
             sub_time = timeStamp * 1000
         # 提取将数据签名，避免循环请求签名，时间戳为报名开始时间
         submitData = self.getSign(self.submit(activityId, True), sub_time)
+        submitDataInfo = self.getSign(self.submit(activityId, True, True), sub_time)
         while True:
             t = time.time()
             se = timeStamp - t
@@ -159,7 +163,15 @@ class Student:
             elif se > 3:
                 time.sleep(1)
             elif -3 <= se <= 3:
+                # 目前不清楚data内容 暂时都试一下
                 submit = self.req('signup/submit', submitData)
+                LogColor.info(str(submitData))
+                LogColor.info(str(submit))
+                if submit['code'] == '100':
+                    LogColor.error("提交成功，任务停止！")
+                    break
+                submit = self.req('signup/submit', submitDataInfo)
+                LogColor.info(str(submitDataInfo))
                 LogColor.info(str(submit))
                 if submit['code'] == '100':
                     LogColor.error("提交成功，任务停止！")

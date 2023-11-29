@@ -155,7 +155,7 @@ class Student:
         submitData = self.getSign(self.submit(activityId, True), sub_time)
         submitDataInfo = self.getSign(self.submit(activityId, True, True), sub_time)
         while True:
-            t = time.time()
+            t = time.time() * 1000
             se = timeStamp - t
             LogColor.info(f"距离活动报名开始还剩：{se}秒")
             if se > 60:
@@ -164,7 +164,7 @@ class Student:
                 time.sleep(1)
             elif -3 <= se <= 3:
                 # 到点抢，可以根据网络延迟适当减少
-                time.sleep((se - 0.05))
+                time.sleep((se - 50))
                 # 目前不清楚data内容 暂时都试一下
                 submit = self.req('signup/submit', submitData)
                 LogColor.info(str(submitData))

@@ -164,7 +164,7 @@ class Student:
                 time.sleep(1)
             elif -3 <= se <= 3:
                 # 到点抢，可以根据网络延迟适当减少
-                time.sleep((se - 50))
+                time.sleep((se - 0.05))
                 # 目前不清楚data内容 暂时都试一下
                 submit = self.req('signup/submit', submitData)
                 LogColor.info(str(submitData))

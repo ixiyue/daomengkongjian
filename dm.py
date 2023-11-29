@@ -145,26 +145,26 @@ class Student:
         stime = detail["joindate"].split("-")[0]
         LogColor.info(f'提交成功，程序将于：{stime}自动报名')
         timeArray = time.strptime(stime, "%Y.%m.%d %H:%M")
-        timeStamp = int(time.mktime(timeArray)) * 1000
+        timeStamp = int(time.mktime(timeArray))
         # 报名已开始，当前时间为时间戳
         sub_time = time.time() * 1000
         # 未开始报名，将报名时间为时间戳，防止签名过期
-        if timeStamp > sub_time:
-            sub_time = timeStamp
+        if timeStamp > (sub_time / 1000):
+            sub_time = timeStamp * 1000
         # 提取将数据签名，避免循环请求签名，时间戳为报名开始时间
         submitData = self.getSign(self.submit(activityId, True), sub_time)
         submitDataInfo = self.getSign(self.submit(activityId, True, True), sub_time)
         while True:
-            t = time.time() * 1000
+            t = time.time()
             se = timeStamp - t
-            LogColor.info(f"距离活动报名开始还剩：{se/1000}秒")
+            LogColor.info(f"距离活动报名开始还剩：{se}秒")
             if se > 60:
                 time.sleep(30)
             elif se > 3:
                 time.sleep(1)
             elif -3 <= se <= 3:
                 # 到点抢，可以根据网络延迟适当减少
-                time.sleep((se - 50))
+                time.sleep((se - 0.05))
                 # 目前不清楚data内容 暂时都试一下
                 submit = self.req('signup/submit', submitData)
                 LogColor.info(str(submitData))

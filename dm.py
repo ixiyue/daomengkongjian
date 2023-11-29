@@ -148,10 +148,10 @@ class Student:
         timeStamp = int(time.mktime(timeArray))
         # 报名已开始，当前时间为时间戳
         sub_time = time.time() * 1000
-        # 未开始报名，将报名时间为时间戳，防止签名过期
+        # 未开始报名，将报名时间设置为时间戳，防止签名过期
         if timeStamp > (sub_time / 1000):
             sub_time = timeStamp * 1000
-        # 提取将数据签名，避免循环请求签名，时间戳为报名开始时间
+        # 提前将数据签名，避免循环请求签名，时间戳为报名开始时间
         submitData = self.getSign(self.submit(activityId, True), sub_time)
         submitDataInfo = self.getSign(self.submit(activityId, True, True), sub_time)
         while True:

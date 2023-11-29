@@ -157,7 +157,7 @@ class Student:
         while True:
             t = time.time() * 1000
             se = timeStamp - t
-            LogColor.info(f"距离活动报名开始还剩：{se}秒")
+            LogColor.info(f"距离活动报名开始还剩：{se/1000}秒")
             if se > 60:
                 time.sleep(30)
             elif se > 3:
